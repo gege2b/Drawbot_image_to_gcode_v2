@@ -437,11 +437,11 @@ void keyPressed() {
       if (pen_count > 9) { pen_distribution[9] *= 0.55; }
   }
     if (key == 'g') { 
-      create_gcode_files(display_line_count);
-      create_gcode_test_file ();
+      // create_gcode_files(display_line_count);
+      // create_gcode_test_file ();
       create_svg_file(display_line_count);
-      d1.render_to_pdf(display_line_count);
-      d1.render_each_pen_to_pdf(display_line_count);
+      // d1.render_to_pdf(display_line_count);
+      // d1.render_each_pen_to_pdf(display_line_count);
     }
   
     if (key == '\\') { screen_scale = screen_scale_org; screen_rotate=0; mx=0; my=0; }
