@@ -63,6 +63,7 @@ String  basefile_selected = "";
 String  gcode_comments = "";
 int     startTime = 0;
 boolean ctrl_down = false;
+boolean alt_down = false;
 
 Limit   dx, dy;
 Copix   copic;
@@ -348,11 +349,13 @@ void render_all() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyReleased() {
   if (keyCode == CONTROL) { ctrl_down = false; }
+  if (keyCode == ALT) {  alt_down = false; }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyPressed() {
   if (keyCode == CONTROL) { ctrl_down = true; }
+  if (keyCode == ALT) {  alt_down = true; }
 
   if (key == 'p') {
     current_pfm ++;
@@ -362,124 +365,126 @@ void keyPressed() {
     state = 2;
   }
   
-  if (key == 'd') { display_mode = "drawing";   }
-  if (key == 'O') { display_mode = "original";  }
-  if (key == 'o') { display_mode = "reference";  }
-  if (key == 'l') { display_mode = "lightened"; }
-  if (keyCode == 49 && ctrl_down && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
-  if (keyCode == 50 && ctrl_down && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
-  if (keyCode == 51 && ctrl_down && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3
-  if (keyCode == 52 && ctrl_down && pen_count > 3) { display_mode = "pen";  pen_selected = 3; }  // ctrl 4
-  if (keyCode == 53 && ctrl_down && pen_count > 4) { display_mode = "pen";  pen_selected = 4; }  // ctrl 5
-  if (keyCode == 54 && ctrl_down && pen_count > 5) { display_mode = "pen";  pen_selected = 5; }  // ctrl 6
-  if (keyCode == 55 && ctrl_down && pen_count > 6) { display_mode = "pen";  pen_selected = 6; }  // ctrl 7
-  if (keyCode == 56 && ctrl_down && pen_count > 7) { display_mode = "pen";  pen_selected = 7; }  // ctrl 8
-  if (keyCode == 57 && ctrl_down && pen_count > 8) { display_mode = "pen";  pen_selected = 8; }  // ctrl 9
-  if (keyCode == 48 && ctrl_down && pen_count > 9) { display_mode = "pen";  pen_selected = 9; }  // ctrl 0
-  if (key == 'G') { is_grid_on = ! is_grid_on; }
-  if (key == ']') { screen_scale *= 1.05; }
-  if (key == '[') { screen_scale *= 1 / 1.05; }
-  if (key == '1' && pen_count > 0) { pen_distribution[0] *= 1.1; }
-  if (key == '2' && pen_count > 1) { pen_distribution[1] *= 1.1; }
-  if (key == '3' && pen_count > 2) { pen_distribution[2] *= 1.1; }
-  if (key == '4' && pen_count > 3) { pen_distribution[3] *= 1.1; }
-  if (key == '5' && pen_count > 4) { pen_distribution[4] *= 1.1; }
-  if (key == '6' && pen_count > 5) { pen_distribution[5] *= 1.1; }
-  if (key == '7' && pen_count > 6) { pen_distribution[6] *= 1.1; }
-  if (key == '8' && pen_count > 7) { pen_distribution[7] *= 1.1; }
-  if (key == '9' && pen_count > 8) { pen_distribution[8] *= 1.1; }
-  if (key == '0' && pen_count > 9) { pen_distribution[9] *= 1.1; }
-  if (key == '!' && pen_count > 0) { pen_distribution[0] *= 0.9; }
-  if (key == '@' && pen_count > 1) { pen_distribution[1] *= 0.9; }
-  if (key == '#' && pen_count > 2) { pen_distribution[2] *= 0.9; }
-  if (key == '$' && pen_count > 3) { pen_distribution[3] *= 0.9; }
-  if (key == '%' && pen_count > 4) { pen_distribution[4] *= 0.9; }
-  if (key == '^' && pen_count > 5) { pen_distribution[5] *= 0.9; }
-  if (key == '&' && pen_count > 6) { pen_distribution[6] *= 0.9; }
-  if (key == '*' && pen_count > 7) { pen_distribution[7] *= 0.9; }
-  if (key == '(' && pen_count > 8) { pen_distribution[8] *= 0.9; }
-  if (key == ')' && pen_count > 9) { pen_distribution[9] *= 0.9; }
-  if (key == 't') { set_even_distribution(); }
-  if (key == 'y') { set_black_distribution(); }
-  if (key == '}') { current_copic_set++; }
-  if (key == '{') { current_copic_set--; } 
-  if (key == 's') { if (state == 3) { state++; } }
-  if (keyCode == 65 && ctrl_down)  {
-    println("Holly freak, Ctrl-A was pressed!");
+  if (ctrl_down && alt_down) { // workaround for azerty keyboards
+    if (key == '0' && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
+    if (key == '1' && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
+    if (key == '2' && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3
+    if (key == '3' && pen_count > 3) { display_mode = "pen";  pen_selected = 3; }  // ctrl 4
+    if (key == '4' && pen_count > 4) { display_mode = "pen";  pen_selected = 4; }  // ctrl 5
+    if (key == '5' && pen_count > 5) { display_mode = "pen";  pen_selected = 5; }  // ctrl 6
+    if (key == '6' && pen_count > 6) { display_mode = "pen";  pen_selected = 6; }  // ctrl 7
+    if (key == '7' && pen_count > 7) { display_mode = "pen";  pen_selected = 7; }  // ctrl 8
+    if (key == '8' && pen_count > 8) { display_mode = "pen";  pen_selected = 8; }  // ctrl 9
+    if (key == '9' && pen_count > 9) { display_mode = "pen";  pen_selected = 9; }  // ctrl 0
+  } else {  
+    if (key == 'd') { display_mode = "drawing";   }
+    if (key == 'O') { display_mode = "original";  }
+    if (key == 'o') { display_mode = "reference";  }
+    if (key == 'l') { display_mode = "lightened"; }
+    if (key == 'G') { is_grid_on = ! is_grid_on; }
+    if (key == ']') { screen_scale *= 1.05; }
+    if (key == '[') { screen_scale *= 1 / 1.05; }
+    if (key == '1' && pen_count > 0) { pen_distribution[0] *= 1.1; }
+    if (key == '2' && pen_count > 1) { pen_distribution[1] *= 1.1; }
+    if (key == '3' && pen_count > 2) { pen_distribution[2] *= 1.1; }
+    if (key == '4' && pen_count > 3) { pen_distribution[3] *= 1.1; }
+    if (key == '5' && pen_count > 4) { pen_distribution[4] *= 1.1; }
+    if (key == '6' && pen_count > 5) { pen_distribution[5] *= 1.1; }
+    if (key == '7' && pen_count > 6) { pen_distribution[6] *= 1.1; }
+    if (key == '8' && pen_count > 7) { pen_distribution[7] *= 1.1; }
+    if (key == '9' && pen_count > 8) { pen_distribution[8] *= 1.1; }
+    if (key == '0' && pen_count > 9) { pen_distribution[9] *= 1.1; }
+    if (key == '&' && pen_count > 0) { pen_distribution[0] *= 0.9; }
+    if (key == 'é' && pen_count > 1) { pen_distribution[1] *= 0.9; }
+    if (key == '"' && pen_count > 2) { pen_distribution[2] *= 0.9; }
+    if (keyCode == 39 && pen_count > 3) { pen_distribution[3] *= 0.9; }
+    if (key == '(' && pen_count > 4) { pen_distribution[4] *= 0.9; }
+    if (key == '-' && pen_count > 5) { pen_distribution[5] *= 0.9; }
+    if (key == 'è' && pen_count > 6) { pen_distribution[6] *= 0.9; }
+    if (key == '_' && pen_count > 7) { pen_distribution[7] *= 0.9; }
+    if (key == 'ç' && pen_count > 8) { pen_distribution[8] *= 0.9; }
+    if (key == 'à' && pen_count > 9) { pen_distribution[9] *= 0.9; }
+    if (key == 't') { set_even_distribution(); }
+    if (key == 'y') { set_black_distribution(); }
+    if (key == '}') { current_copic_set++; }
+    if (key == '{') { current_copic_set--; } 
+    if (key == 's') { if (state == 3) { state++; } }
+    if (keyCode == 65 && ctrl_down)  {
+      println("Holly freak, Ctrl-A was pressed!");
+    }
+    if (key == '9') {
+      if (pen_count > 0) { pen_distribution[0] *= 1.00; }
+      if (pen_count > 1) { pen_distribution[1] *= 1.05; }
+      if (pen_count > 2) { pen_distribution[2] *= 1.10; }
+      if (pen_count > 3) { pen_distribution[3] *= 1.15; }
+      if (pen_count > 4) { pen_distribution[4] *= 1.20; }
+      if (pen_count > 5) { pen_distribution[5] *= 1.25; }
+      if (pen_count > 6) { pen_distribution[6] *= 1.30; }
+      if (pen_count > 7) { pen_distribution[7] *= 1.35; }
+      if (pen_count > 8) { pen_distribution[8] *= 1.40; }
+      if (pen_count > 9) { pen_distribution[9] *= 1.45; }
+    }
+    if (key == '0') {
+      if (pen_count > 0) { pen_distribution[0] *= 1.00; }
+      if (pen_count > 1) { pen_distribution[1] *= 0.95; }
+      if (pen_count > 2) { pen_distribution[2] *= 0.90; }
+      if (pen_count > 3) { pen_distribution[3] *= 0.85; }
+      if (pen_count > 4) { pen_distribution[4] *= 0.80; }
+      if (pen_count > 5) { pen_distribution[5] *= 0.75; }
+      if (pen_count > 6) { pen_distribution[6] *= 0.70; }
+      if (pen_count > 7) { pen_distribution[7] *= 0.65; }
+      if (pen_count > 8) { pen_distribution[8] *= 0.60; }
+      if (pen_count > 9) { pen_distribution[9] *= 0.55; }
   }
-  if (key == '9') {
-    if (pen_count > 0) { pen_distribution[0] *= 1.00; }
-    if (pen_count > 1) { pen_distribution[1] *= 1.05; }
-    if (pen_count > 2) { pen_distribution[2] *= 1.10; }
-    if (pen_count > 3) { pen_distribution[3] *= 1.15; }
-    if (pen_count > 4) { pen_distribution[4] *= 1.20; }
-    if (pen_count > 5) { pen_distribution[5] *= 1.25; }
-    if (pen_count > 6) { pen_distribution[6] *= 1.30; }
-    if (pen_count > 7) { pen_distribution[7] *= 1.35; }
-    if (pen_count > 8) { pen_distribution[8] *= 1.40; }
-    if (pen_count > 9) { pen_distribution[9] *= 1.45; }
-  }
-  if (key == '0') {
-    if (pen_count > 0) { pen_distribution[0] *= 1.00; }
-    if (pen_count > 1) { pen_distribution[1] *= 0.95; }
-    if (pen_count > 2) { pen_distribution[2] *= 0.90; }
-    if (pen_count > 3) { pen_distribution[3] *= 0.85; }
-    if (pen_count > 4) { pen_distribution[4] *= 0.80; }
-    if (pen_count > 5) { pen_distribution[5] *= 0.75; }
-    if (pen_count > 6) { pen_distribution[6] *= 0.70; }
-    if (pen_count > 7) { pen_distribution[7] *= 0.65; }
-    if (pen_count > 8) { pen_distribution[8] *= 0.60; }
-    if (pen_count > 9) { pen_distribution[9] *= 0.55; }
-}
-  if (key == 'g') { 
-    create_gcode_files(display_line_count);
-    create_gcode_test_file ();
-    create_svg_file(display_line_count);
-    d1.render_to_pdf(display_line_count);
-    d1.render_each_pen_to_pdf(display_line_count);
-  }
-
-  if (key == '\\') { screen_scale = screen_scale_org; screen_rotate=0; mx=0; my=0; }
-  if (key == '<') {
-    int delta = -10000;
-    display_line_count = int(display_line_count + delta);
-    if (display_line_count < 0) { display_line_count = 0; }
-    display_line_count = constrain(display_line_count, 0, d1.line_count);
-    println("display_line_count: " + display_line_count);
-  }
-  if (key == '>') {
-    int delta = 10000;
-    display_line_count = int(display_line_count + delta);
-    display_line_count = constrain(display_line_count, 0, d1.line_count);
-    println("display_line_count: " + display_line_count);
-  }
-  if (key == CODED) {
-    int delta = 15;
-    if (keyCode == UP)    { my+= delta; };
-    if (keyCode == DOWN)  { my-= delta; };
-    if (keyCode == RIGHT) { mx-= delta; };
-    if (keyCode == LEFT)  { mx+= delta; };
-  }
-  if (key == 'r') { 
-    screen_rotate ++;
-    if (screen_rotate == 4) { screen_rotate = 0; }
-    
-    switch(screen_rotate) {
-      case 0: 
-        my -= img.height;
-        break;
-      case 1: 
-        mx += img.height;
-        break;
-      case 2: 
-        my += img.height;
-        break;
-      case 3: 
-        mx -= img.height;
-        break;
-     }
-  }
+    if (key == 'g') { 
+      create_gcode_files(display_line_count);
+      create_gcode_test_file ();
+      create_svg_file(display_line_count);
+      d1.render_to_pdf(display_line_count);
+      d1.render_each_pen_to_pdf(display_line_count);
+    }
   
+    if (key == '\\') { screen_scale = screen_scale_org; screen_rotate=0; mx=0; my=0; }
+    if (key == '<') {
+      int delta = -10000;
+      display_line_count = int(display_line_count + delta);
+      if (display_line_count < 0) { display_line_count = 0; }
+      display_line_count = constrain(display_line_count, 0, d1.line_count);
+      println("display_line_count: " + display_line_count);
+    }
+    if (key == '>') {
+      int delta = 10000;
+      display_line_count = int(display_line_count + delta);
+      display_line_count = constrain(display_line_count, 0, d1.line_count);
+      println("display_line_count: " + display_line_count);
+    }
+    if (key == CODED) {
+      int delta = 15;
+      if (keyCode == UP)    { my+= delta; };
+      if (keyCode == DOWN)  { my-= delta; };
+      if (keyCode == RIGHT) { mx-= delta; };
+      if (keyCode == LEFT)  { mx+= delta; };
+    }
+    if (key == 'r') { 
+      screen_rotate ++;
+      if (screen_rotate == 4) { screen_rotate = 0; }
+      
+      switch(screen_rotate) {
+        case 0: 
+          my -= img.height;
+          break;
+        case 1: 
+          mx += img.height;
+          break;
+        case 2: 
+          my += img.height;
+          break;
+        case 3: 
+          mx -= img.height;
+          break;
+       }
+    }
+  }
   current_copic_set = constrain(current_copic_set, 0, copic_sets.length - 1);
   normalize_distribution();
   d1.distribute_pen_changes_according_to_percentages(display_line_count, pen_count);
