@@ -16,10 +16,10 @@ import processing.pdf.*;
 
 
 // Constants 
-final float   paper_size_x = 32 * 25.4;
-final float   paper_size_y = 40 * 25.4;
-final float   image_size_x = 28 * 25.4;
-final float   image_size_y = 36 * 25.4;
+final float   paper_size_x = 210;
+final float   paper_size_y = 297;
+final float   image_size_x = 190;
+final float   image_size_y = 280;
 final float   paper_top_to_origin = 285;      //mm, make smaller to move drawing down on paper
 final float   pen_width = 0.65;               //mm, determines image_scale, reduce, if solid black areas are speckled with white holes.
 final int     pen_count = 6;
