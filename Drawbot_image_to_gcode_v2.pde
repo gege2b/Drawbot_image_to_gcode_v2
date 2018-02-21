@@ -21,7 +21,7 @@ final float   paper_size_y = 297;
 final float   image_size_x = 190;
 final float   image_size_y = 280;
 final float   paper_top_to_origin = 285;      //mm, make smaller to move drawing down on paper
-final float   pen_width = 0.65;               //mm, determines image_scale, reduce, if solid black areas are speckled with white holes.
+final float   pen_width = 0.2;               //mm, determines image_scale, reduce, if solid black areas are speckled with white holes.
 final int     pen_count = 6;
 final char    gcode_decimal_seperator = '.';    
 final int     gcode_decimals = 2;             // Number of digits right of the decimal point in the gcode files.
@@ -366,6 +366,7 @@ void keyPressed() {
   }
   
   if (ctrl_down && alt_down) { // workaround for azerty keyboards
+  println("blaaaaah");
     if (key == '0' && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
     if (key == '1' && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
     if (key == '2' && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3

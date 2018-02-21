@@ -21,13 +21,13 @@ class PFM_original implements pfm {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   public void pre_processing() {
-    image_crop();
+    //image_crop();
     image_scale(int(image_size_x / pen_width));
     //image_sharpen(img);
     //image_blurr(img);
     //image_unsharpen(img, 5);
-    image_unsharpen(img, 4);
-    image_unsharpen(img, 3);
+    //image_unsharpen(img, 4);
+    //image_unsharpen(img, 3);
     //image_unsharpen(img, 2);
     //image_unsharpen(img, 1);
     //image_motion_blur(img);
