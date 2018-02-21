@@ -15,11 +15,12 @@ import java.util.Map;
 import processing.pdf.*;
 
 
-// Constants 
-final float   paper_size_x = 210;
-final float   paper_size_y = 297;
-final float   image_size_x = 190;
-final float   image_size_y = 280;
+// Constants
+final float   unit_factor = 1; // 1 for mm, 25.4 for inches
+final float   paper_size_x = 210; // mm
+final float   paper_size_y = 297; // mm
+final float   image_size_x = 190; // mm
+final float   image_size_y = 280; // mm
 final float   paper_top_to_origin = 285;      //mm, make smaller to move drawing down on paper
 final float   pen_width = 0.2;               //mm, determines image_scale, reduce, if solid black areas are speckled with white holes.
 final int     pen_count = 6;
@@ -227,9 +228,9 @@ void setup_squiggles() {
   screen_scale_org = screen_scale;
   
   gcode_comment("final dimensions: " + img.width + " by " + img.height);
-  gcode_comment("paper_size: " + nf(paper_size_x,0,2) + " by " + nf(paper_size_y,0,2) + "      " + nf(paper_size_x/25.4,0,2) + " by " + nf(paper_size_y/25.4,0,2));
-  gcode_comment("drawing size max: " + nf(image_size_x,0,2) + " by " + nf(image_size_y,0,2) + "      " + nf(image_size_x/25.4,0,2) + " by " + nf(image_size_y/25.4,0,2));
-  gcode_comment("drawing size calculated " + nf(img.width * gcode_scale,0,2) + " by " + nf(img.height * gcode_scale,0,2) + "      " + nf(img.width * gcode_scale/25.4,0,2) + " by " + nf(img.height * gcode_scale/25.4,0,2));
+  gcode_comment("paper_size: " + nf(paper_size_x,0,2) + " by " + nf(paper_size_y,0,2) + "      " + nf(paper_size_x/unit_factor,0,2) + " by " + nf(paper_size_y/unit_factor,0,2));
+  gcode_comment("drawing size max: " + nf(image_size_x,0,2) + " by " + nf(image_size_y,0,2) + "      " + nf(image_size_x/unit_factor,0,2) + " by " + nf(image_size_y/unit_factor,0,2));
+  gcode_comment("drawing size calculated " + nf(img.width * gcode_scale,0,2) + " by " + nf(img.height * gcode_scale,0,2) + "      " + nf(img.width * gcode_scale/unit_factor,0,2) + " by " + nf(img.height * gcode_scale/unit_factor,0,2));
   gcode_comment("gcode_scale X:  " + nf(gcode_scale_x,0,2));
   gcode_comment("gcode_scale Y:  " + nf(gcode_scale_y,0,2));
   gcode_comment("gcode_scale:    " + nf(gcode_scale,0,2));
@@ -256,13 +257,13 @@ void grid() {
     stroke(255, 64, 64, 70);
     // Vertical lines
     for (int x = -gridlines; x <= gridlines; x++) {
-      int x0 = int(x * 25.4 * (1 / gcode_scale));
+      int x0 = int(x * unit_factor * (1 / gcode_scale));
       line(x0 + image_center_x, -5000, x0 + image_center_x, 5000);
     }
   
     // Horizontal lines
     for (int y = -gridlines; y <= gridlines; y++) {
-      int y0 = int(y * 25.4 * (1 / gcode_scale));
+      int y0 = int(y * unit_factor * (1 / gcode_scale));
       line(-5000, y0 + image_center_y, 5000, y0 + image_center_y);
     }
     
@@ -354,8 +355,10 @@ void keyReleased() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyPressed() {
-  if (keyCode == CONTROL) { ctrl_down = true; }
-  if (keyCode == ALT) {  alt_down = true; }
+  if (key == CODED) {
+    if (keyCode == CONTROL) { ctrl_down = true; }
+    if (keyCode == ALT) {  alt_down = true; }
+  }
 
   if (key == 'p') {
     current_pfm ++;
@@ -366,7 +369,6 @@ void keyPressed() {
   }
   
   if (ctrl_down && alt_down) { // workaround for azerty keyboards
-  println("blaaaaah");
     if (key == '0' && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
     if (key == '1' && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
     if (key == '2' && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3

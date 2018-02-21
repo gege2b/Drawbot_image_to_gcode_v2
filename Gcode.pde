@@ -125,8 +125,8 @@ void create_gcode_files (int line_count) {
     }
     
     gcode_trailer();
-    OUTPUT.println("(Drew " + lines_drawn + " lines for " + pen_drawing  / 25.4 / 12 + " feet)");
-    OUTPUT.println("(Pen was lifted " + pen_lifts + " times for " + pen_movement  / 25.4 / 12 + " feet)");
+    OUTPUT.println("(Drew " + lines_drawn + " lines for " + pen_drawing  / unit_factor / 12 + " feet)");
+    OUTPUT.println("(Pen was lifted " + pen_lifts + " times for " + pen_movement  / unit_factor / 12 + " feet)");
     OUTPUT.println("(Extreams of X: " + dx.min + " thru " + dx.max + ")");
     OUTPUT.println("(Extreams of Y: " + dy.min + " thru " + dy.max + ")");
     OUTPUT.flush();
@@ -138,7 +138,7 @@ void create_gcode_files (int line_count) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void create_gcode_test_file () {
   // The dx.min are already scaled to gcode.
-  float test_length = 25.4 * 2;
+  float test_length = unit_factor * 2;
   
   String gname = "gcode/gcode_" + basefile_selected + "_test.txt";
   OUTPUT = createWriter(sketchPath("") + gname);
