@@ -21,10 +21,10 @@ class PFM_rectilinear implements pfm {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   public void pre_processing() {
-    image_crop();
-    image_scale(1000);
-    image_unsharpen(img, 3);
-    image_boarder("b6.png", 0, 0);
+//    image_crop();
+    image_scale(int(image_size_x / pen_width));
+//    image_unsharpen(img, 3);
+//    image_boarder("b6.png", 0, 0);
     image_desaturate();
   }
   

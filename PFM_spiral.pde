@@ -10,7 +10,7 @@ class PFM_spiral implements pfm {
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   public void pre_processing() {
-    image_crop();
+    //image_crop();
     image_scale(1000);
     image_unsharpen(img, 3);
     image_boarder("b6.png", 0, 0);
