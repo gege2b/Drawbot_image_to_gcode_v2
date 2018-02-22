@@ -33,7 +33,7 @@ final int     svg_decimals = 2;               // Number of digits right of the d
 Class cl = null;
 pfm ocl;
 int current_pfm = 0;
-String[] pfms = {"PFM_original", "PFM_spiral", "PFM_squares"}; 
+String[] pfms = {"PFM_original", "PFM_spiral", "PFM_squares", "PFM_rectilinear"}; 
 
 int     state = 1;
 int     pen_selected = 0;
@@ -356,7 +356,6 @@ void keyReleased() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void keyPressed() {
   if (key == CODED) {
-    if (keyCode == CONTROL) { ctrl_down = true; }
     if (keyCode == ALT) {  alt_down = true; }
   }
 
@@ -368,17 +367,17 @@ void keyPressed() {
     state = 2;
   }
   
-  if (ctrl_down && alt_down) { // workaround for azerty keyboards
-    if (key == '0' && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
-    if (key == '1' && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
-    if (key == '2' && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3
-    if (key == '3' && pen_count > 3) { display_mode = "pen";  pen_selected = 3; }  // ctrl 4
-    if (key == '4' && pen_count > 4) { display_mode = "pen";  pen_selected = 4; }  // ctrl 5
-    if (key == '5' && pen_count > 5) { display_mode = "pen";  pen_selected = 5; }  // ctrl 6
-    if (key == '6' && pen_count > 6) { display_mode = "pen";  pen_selected = 6; }  // ctrl 7
-    if (key == '7' && pen_count > 7) { display_mode = "pen";  pen_selected = 7; }  // ctrl 8
-    if (key == '8' && pen_count > 8) { display_mode = "pen";  pen_selected = 8; }  // ctrl 9
-    if (key == '9' && pen_count > 9) { display_mode = "pen";  pen_selected = 9; }  // ctrl 0
+  if (alt_down) { // workaround for azerty keyboards
+    if (key == '1' && pen_count > 0) { display_mode = "pen";  pen_selected = 0; }  // ctrl 1
+    if (key == '2' && pen_count > 1) { display_mode = "pen";  pen_selected = 1; }  // ctrl 2
+    if (key == '3' && pen_count > 2) { display_mode = "pen";  pen_selected = 2; }  // ctrl 3
+    if (key == '4' && pen_count > 3) { display_mode = "pen";  pen_selected = 3; }  // ctrl 4
+    if (key == '5' && pen_count > 4) { display_mode = "pen";  pen_selected = 4; }  // ctrl 5
+    if (key == '6' && pen_count > 5) { display_mode = "pen";  pen_selected = 5; }  // ctrl 6
+    if (key == '7' && pen_count > 6) { display_mode = "pen";  pen_selected = 6; }  // ctrl 7
+    if (key == '8' && pen_count > 7) { display_mode = "pen";  pen_selected = 7; }  // ctrl 8
+    if (key == '9' && pen_count > 8) { display_mode = "pen";  pen_selected = 8; }  // ctrl 9
+    if (key == '0' && pen_count > 9) { display_mode = "pen";  pen_selected = 9; }  // ctrl 0
   } else {  
     if (key == 'd') { display_mode = "drawing";   }
     if (key == 'O') { display_mode = "original";  }
