@@ -1,4 +1,6 @@
 # Drawbot_image_to_gcode_v2
+<img src="pics/github1.png" height="411" alt="Drawbot_image_to_gcode_v2 example output"/>
+
 This code is used to generate gcode for drawbots, polargraphs or other vertical drawing machines. \
 It takes an original image, manipulates it and generates a drawing path that kinda sorta looks like the original image. \
 This code was specifically written to work with multiple Copic markers. \
@@ -33,7 +35,8 @@ If your clipboard contains a URL to a web site, the code will crash and burn in 
 | Esc | Exit running program |
 | < | Decrease the total number of lines drawn |
 | > | Increase the total number of lines drawn |
-| G | Generate all gcode, SVGs, and PDFs with lines as displayed |
+| g | Generate all gcode, SVGs, and PDFs with lines as displayed |
+| G | Toggle grid |
 | t | Redistribute percentage of lines drawn by each pen evenly |
 | y | Redistribute 100% of lines drawn to pen 0 ( Black/White/Sharpie ) |
 | 9 | Change distribution of lines drawn (lighten) |
