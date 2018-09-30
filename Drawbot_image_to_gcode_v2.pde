@@ -25,9 +25,13 @@ final float   paper_top_to_origin = 285;      //mm, make smaller to move drawing
 final float   pen_width = 0.2;               //mm, determines image_scale, reduce, if solid black areas are speckled with white holes.
 final int     pen_count = 6;
 final char    gcode_decimal_seperator = '.';    
-final int     gcode_decimals = 2;             // Number of digits right of the decimal point in the gcode files.
+final int     gcode_decimals = 4;             // Number of digits right of the decimal point in the gcode files.
 final int     svg_decimals = 2;               // Number of digits right of the decimal point in the SVG file.
-final float   grid_scale = 25.4;              // Use 10.0 for centimeters, 25.4 for inches, and between 444 and 529.2 for cubits.
+final float   grid_scale = 10;              // Use 10.0 for centimeters, 25.4 for inches, and between 444 and 529.2 for cubits.
+final String customGcode =  "M4 X592 E1.0 S1600.0 P38.0\nM5 Y142\nG0 F3470"; // custom GCode added to GCode header
+final float  gcode_machine_offset_x = 592/2;  // represents the top center of the paper
+final float  gcode_machine_offset_y = 0;    // represents the top edge of the paper (sent by the M1/M5 command)
+
 
 
 // Every good program should have a shit pile of badly named globals.
@@ -414,8 +418,9 @@ void keyPressed() {
       if (pen_count > 9) { pen_distribution[9] *= 0.55; }
   }
     if (key == 'g') { 
-      // create_gcode_files(display_line_count);
-      // create_gcode_test_file ();
+      create_gcode_files(display_line_count);
+      
+      create_gcode_test_file ();
       create_svg_file(display_line_count);
       // d1.render_to_pdf(display_line_count);
       // d1.render_each_pen_to_pdf(display_line_count);
