@@ -32,6 +32,7 @@ class PFM_spiral implements pfm {
     float k;                                   // Current radius
     float endRadius;                           // Largest value the spiral needs to cover the image
     color mask = color (240, 240, 240);        // This color will not be drawn (WHITE)
+    boolean useMask = false;
       
     k = density/radius;
     alpha = k;
@@ -83,7 +84,7 @@ class PFM_spiral implements pfm {
         yb = -bradius*sin(radians(alpha))+img.height/2;
   
         // If the sampled color is the mask color do not write to the shape
-        if (brightness(mask) <= brightness(c)) {
+        if (brightness(mask) <= brightness(c) && useMask) {
           pen_up();
         } else {
           pen_down();
